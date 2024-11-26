@@ -64,3 +64,40 @@ test("404: Responds with Sorry Not Found when requesting was from a bad URL", ()
       expect(message).toBe("Sorry Not Found")
     })
 })
+
+describe("GET /api/articles/:article_id", () => {
+  test("200: Respond with a object for the article id passed", () => {
+    return request(app)
+      .get("/api/articles/1")
+      .expect(200)
+      .then(({ body: { article } }) => {
+        expect(article).toMatchObject({
+          article_id: 1,
+          author: "butter_bridge",
+          title: "Living in the shadow of a great man",
+          body: "I find this existence challenging",
+          topic: "mitch",
+          created_at: "2020-07-09T20:11:00.000Z",
+          votes: 100,
+          article_img_url:
+            "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
+        });
+      });
+  });
+  test("404: Article_id does not exist", () => {
+    return request(app)
+      .get("/api/articles/100")
+      .expect(404)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("article does not exist");
+      });
+  });
+  test("400: Article_id is not a number", () => {
+    return request(app)
+      .get("/api/articles/banana")
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request");
+      });
+  });
+});

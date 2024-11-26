@@ -1,3 +1,4 @@
+
 const endpointsJson = require("../endpoints.json")
 const selectTopics = require("../models/nc-news-model")
 
@@ -10,4 +11,5 @@ function getTopics(req, res) {
     });
   }
 
-module.exports = {getApi, getTopics}
+
+module.exports = {getApi, getTopics }

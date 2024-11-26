@@ -1,13 +1,24 @@
-const express = require("express");
-const {notFoundErrorHandler, psqlErrorHandler, customErrorsHandler, serverErrorHandler} = require("./error-handler")
-const {getApi, getTopics} = require("./controllers/nc-news-controller")
+const express = require("express")
+const {
+  notFoundErrorHandler,
+  psqlErrorHandler,
+  customErrorsHandler,
+  serverErrorHandler,
+} = require("./error-handler")
+const { getApi, getTopics } = require("./controllers/nc-news-controller")
+const getArticleById = require("./controllers/articles.controller")
 
-const app = express();
+const app = express()
 
-app.get("/api", getApi);
+app.get("/api", getApi)
 
-app.get("/api/topics", getTopics);
+app.get("/api/topics", getTopics)
 
-app.all("*", notFoundErrorHandler);
+app.get("/api/articles/:article_id", getArticleById)
 
-module.exports = app;
+app.use(psqlErrorHandler)
+app.use(customErrorsHandler)
+app.use(serverErrorHandler)
+app.all("*", notFoundErrorHandler)
+
+module.exports = app

@@ -185,3 +185,80 @@ describe("GET /api/articles/:article_id/comments", () => {
       })
   })
 })
+describe("POST /api/articles/:article_id/comments", () => {
+  test("201: Post comment on a article", () => {
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send({
+        username: "butter_bridge",
+        body: "test",
+      })
+      .expect(201)
+      .then(({ body: { comment } }) => {
+        expect(comment).toEqual({
+          article_id: 1,
+          votes: 0,
+          created_at: expect.any(String),
+          comment_id: expect.any(Number),
+          author: "butter_bridge",
+          body: "test",
+        })
+      })
+  })
+  test("400: Article_id is not a number", () => {
+    return request(app)
+      .post("/api/articles/banana/comments")
+      .send({
+        username: "butter_bridge",
+        body: "test",
+      })
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request")
+      })
+  })
+  test("400: Invalid user", () => {
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send({
+        username: "invalid",
+        body: "test",
+      })
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request")
+      })
+  })
+  test("404: Article_id does not exist", () => {
+    return request(app)
+      .post("/api/articles/99999/comments")
+      .send({
+        username: "butter_bridge",
+        body: "test",
+      })
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request")
+      })
+  })
+  test("404: Missing body", () => {
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send({
+        username: "butter_bridge",
+      })
+      .expect(404)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("missing information")
+      })
+  })
+  test("404:Multiple errors", () => {
+    return request(app)
+      .post("/api/articles/1234/comments")
+      .send({ username: "butter_bridge" })
+      .expect(404)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("missing information")
+      })
+  })
+})

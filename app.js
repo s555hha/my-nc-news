@@ -11,9 +11,10 @@ const {
   getAllArticles,
 } = require("./controllers/articles.controller")
 
-const getCommentsByArticleId = require("./controllers/comments.controller")
+const { getCommentsByArticleId, postCommentOnArticle } = require("./controllers/comments.controller")
 
 const app = express()
+app.use(express.json())
 
 app.get("/api", getApi)
 
@@ -25,9 +26,12 @@ app.get("/api/articles", getAllArticles)
 
 app.get("/api/articles/:article_id/comments", getCommentsByArticleId)
 
+app.post("/api/articles/:article_id/comments", postCommentOnArticle)
+
+app.all("*", notFoundErrorHandler)
 app.use(psqlErrorHandler)
 app.use(customErrorsHandler)
 app.use(serverErrorHandler)
-app.all("*", notFoundErrorHandler)
+
 
 module.exports = app

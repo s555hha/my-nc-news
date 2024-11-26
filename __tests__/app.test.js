@@ -100,4 +100,44 @@ describe("GET /api/articles/:article_id", () => {
         expect(message).toBe("Bad request");
       });
   });
-});
+})
+  describe("GET /api/articles", () => {
+    test("200: Responds with an array of article objects with the correct properties", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          expect(articles).toHaveLength(13);
+          articles.forEach((article) => {
+            expect(article).toMatchObject({
+              article_id: expect.any(Number),
+              author: expect.any(String),
+              title: expect.any(String),
+              topic: expect.any(String),
+              created_at: expect.any(String),
+              votes: expect.any(Number),
+              article_img_url: expect.any(String),
+            });
+          });
+        });
+    });
+    test("200: Responds with an array of article objects in descending order", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body: {articles} }) => {
+          expect(articles).toBeSortedBy("created_at", { descending: true });
+        });
+    });
+  test('200: Returned a objects without a body', () => {
+    return request(app)
+      .get('/api/articles')
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles.length).toBe(13);
+        articles.forEach((article) => {
+          expect(article).not.toHaveProperty('body');
+        });
+      });
+  })
+})

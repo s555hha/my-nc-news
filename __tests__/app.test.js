@@ -41,28 +41,28 @@ describe("GET /api/topics", () => {
         })
       })
   })
-})
-test("200: the corrsponding response of object should be", () => {
-  return request(app)
-    .get("/api/topics")
-    .expect(200)
-    .then(({ body: { topics } }) => {
-      expect(topics).toHaveLength(3)
-      topics.forEach((topic) => {
-        expect(topics[0]).toMatchObject({
-          slug: "mitch",
-          description: "The man, the Mitch, the legend",
+  test("200: the corrsponding response of object should be", () => {
+    return request(app)
+      .get("/api/topics")
+      .expect(200)
+      .then(({ body: { topics } }) => {
+        expect(topics).toHaveLength(3)
+        topics.forEach((topic) => {
+          expect(topics[0]).toMatchObject({
+            slug: "mitch",
+            description: "The man, the Mitch, the legend",
+          })
         })
       })
-    })
-})
-test("404: Responds with Sorry Not Found when requesting was from a bad URL", () => {
-  return request(app)
-    .get("/api/to")
-    .expect(404)
-    .then(({ body: { message } }) => {
-      expect(message).toBe("Sorry Not Found")
-    })
+  })
+  test("404: Responds with Sorry Not Found when requesting was from a bad URL", () => {
+    return request(app)
+      .get("/api/to")
+      .expect(404)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Sorry Not Found")
+      })
+  })
 })
 
 describe("GET /api/articles/:article_id", () => {
@@ -185,6 +185,14 @@ describe("GET /api/articles/:article_id/comments", () => {
       })
   })
 })
+test("404: Returns with error if endpoint is valid but no comment", () => {
+  return request(app)
+    .get("/api/articles/2/comments")
+    .expect(404)
+    .then(({ body: { message } }) => {
+      expect(message).toBe('article does not exist')
+    })
+})
 describe("POST /api/articles/:article_id/comments", () => {
   test("201: Post comment on a article", () => {
     return request(app)
@@ -229,7 +237,7 @@ describe("POST /api/articles/:article_id/comments", () => {
         expect(message).toBe("Bad request")
       })
   })
-  test("404: Article_id does not exist", () => {
+  test("400: Article_id does not exist", () => {
     return request(app)
       .post("/api/articles/99999/comments")
       .send({
@@ -259,6 +267,71 @@ describe("POST /api/articles/:article_id/comments", () => {
       .expect(404)
       .then(({ body: { message } }) => {
         expect(message).toBe("missing information")
+      })
+  })
+})
+describe("PATCH /api/articles/:article_id", () => {
+  test("201: Responds with updated article vote count", () => {
+    return request(app)
+      .patch("/api/articles/2")
+      .send({ inc_votes: 1 })
+      .expect(201)
+      .then(({ body: { article } }) => {
+        expect(article.votes).toBe(1)
+      })
+  })
+  test("201: Returns with updated article vote count", () => {
+    return request(app)
+      .patch("/api/articles/1")
+      .send({ inc_votes: 5 })
+      .expect(201)
+      .then(({ body: { article } }) => {
+        expect(article).toMatchObject({
+          article_id: 1,
+          author: expect.any(String),
+          title: expect.any(String),
+          body: expect.any(String),
+          topic: expect.any(String),
+          created_at: expect.any(String),
+          votes: 5,
+          article_img_url: expect.any(String),
+        })
+      })
+  })
+  test("400: Responds with an error if sent a empty object", () => {
+    return request(app)
+      .patch("/api/articles/2")
+      .send({})
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request")
+      })
+  })
+  test("400: Responds with an error if request key is not inc_votes", () => {
+    return request(app)
+      .patch("/api/articles/1")
+      .send({ votes: 1 })
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request")
+      })
+  })
+  test("400: Responds with an error message if inc_vote is not a number", () => {
+    return request(app)
+      .patch("/api/articles/5")
+      .send({ inc_votes: "banana" })
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request")
+      })
+  })
+  test("400: Article_id does not exist", () => {
+    return request(app)
+      .patch("/api/articles/banana")
+      .send({ inc_votes: 10 })
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request")
       })
   })
 })

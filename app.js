@@ -9,6 +9,7 @@ const { getApi, getTopics } = require("./controllers/nc-news-controller")
 const {
   getArticleById,
   getAllArticles,
+  updateArticle,
 } = require("./controllers/articles.controller")
 
 const { getCommentsByArticleId, postCommentOnArticle } = require("./controllers/comments.controller")
@@ -28,10 +29,12 @@ app.get("/api/articles/:article_id/comments", getCommentsByArticleId)
 
 app.post("/api/articles/:article_id/comments", postCommentOnArticle)
 
-app.all("*", notFoundErrorHandler)
+app.patch("/api/articles/:article_id", updateArticle)
+
+
 app.use(psqlErrorHandler)
 app.use(customErrorsHandler)
 app.use(serverErrorHandler)
-
+app.all("*", notFoundErrorHandler)
 
 module.exports = app

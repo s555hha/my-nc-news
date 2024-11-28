@@ -18,6 +18,8 @@ const {
   deleteComment,
 } = require("./controllers/comments.controller")
 
+const getAllUsers = require("./controllers/users.controller")
+
 const app = express()
 app.use(express.json())
 
@@ -36,6 +38,8 @@ app.post("/api/articles/:article_id/comments", postCommentOnArticle)
 app.patch("/api/articles/:article_id", updateArticle)
 
 app.delete("/api/comments/:comment_id", deleteComment)
+
+app.get("/api/users", getAllUsers)
 
 app.use(psqlErrorHandler)
 app.use(customErrorsHandler)

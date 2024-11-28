@@ -28,22 +28,6 @@ function postCommentOnArticle(req, res, next) {
       next(err)
     })
 }
-// function deleteComment(req, res, next) {
-//   const { comment_id } = req.params
-//   const promises = [removeSelectedComment(comment_id)]
-//   if (comment_id) {
-//     promises.push(checkExists("comments", "comment_id", comment_id))
-//   }
-//   Promise.all(promises)
-//     .then(() => {
-//       res.status(204).send()
-//     })
-//     .catch((err) => {
-//       next(err)
-//     })
-// }
-
-//will return later and try and fix not working properly only works occasionally unsure why
 
 function deleteComment(req, res, next) {
   const { comment_id } = req.params

@@ -1,3 +1,4 @@
+const articles = require("../db/data/test-data/articles")
 const {
   selectArticleById,
   selectAllArticles,
@@ -17,14 +18,16 @@ function getArticleById(req, res, next) {
     })
 }
 function getAllArticles(req, res, next) {
-  selectAllArticles()
+  const { sort_by, order_by } = req.query
+  selectAllArticles(sort_by, order_by)
     .then((articles) => {
-      res.status(200).send({ articles })
+      res.status(200).send({ articles });
     })
     .catch((err) => {
       next(err)
     })
 }
+
 function updateArticle(req, res, next) {
   const { article_id } = req.params
   const { inc_votes } = req.body

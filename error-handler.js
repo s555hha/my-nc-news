@@ -11,8 +11,11 @@ function customErrorsHandler (err, req, res, next) {
 }
 
 function psqlErrorHandler (err, req, res, next)  {
-  if (err.code === "22P02" || err.code === "23503") {
+  if (err.code === "22P02") {
     res.status(400).send({ message: "Bad request" });
+  }
+  if ( err.code === "23503") {
+    res.status(400).send({ message: "User does not exist" })
   } else {
     next(err);
   }

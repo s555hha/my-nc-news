@@ -234,7 +234,7 @@ describe("POST /api/articles/:article_id/comments", () => {
       })
       .expect(400)
       .then(({ body: { message } }) => {
-        expect(message).toBe("Bad request")
+        expect(message).toBe("User does not exist")
       })
   })
   test("400: Article_id does not exist", () => {
@@ -246,7 +246,7 @@ describe("POST /api/articles/:article_id/comments", () => {
       })
       .expect(400)
       .then(({ body: { message } }) => {
-        expect(message).toBe("Bad request")
+        expect(message).toBe("User does not exist")
       })
   })
   test("404: Missing body", () => {
@@ -335,3 +335,29 @@ describe("PATCH /api/articles/:article_id", () => {
       })
   })
 })
+describe("DELETE /api/comments/:comment_id", () => {
+  test("204: Deletes comment and then responds empty", () => {
+    return request(app)
+      .delete("/api/comments/2")
+      .expect(204)
+      .then(({ body }) => {
+        expect(body).toEqual({});
+      });
+  });
+  test("404: Comment_id does not exist", () => {
+    return request(app)
+      .delete("/api/comments/1234")
+      .expect(404)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Sorry Not Found");
+      });
+  });
+  test("400: Comment_id is not a number", () => {
+    return request(app)
+      .delete("/api/comments/banana")
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request");
+      });
+  });
+});

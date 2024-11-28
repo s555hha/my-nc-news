@@ -4,7 +4,7 @@ const {
   updateSelectedArticle,
 } = require("../models/articles.models")
 
-const checkArticleExists = require("../models/checkIfExists")
+const checkExists = require("../models/checkIfExists")
 
 function getArticleById(req, res, next) {
   const { article_id } = req.params
@@ -28,9 +28,11 @@ function getAllArticles(req, res, next) {
 function updateArticle(req, res, next) {
   const { article_id } = req.params
   const { inc_votes } = req.body
+  
   const promises = [updateSelectedArticle(article_id, inc_votes)]
+
   if (article_id) {
-    promises.push(checkArticleExists(article_id))
+    promises.push(checkExists('articles','article_id',article_id))
   }
   Promise.all(promises)
     .then(([article]) => {

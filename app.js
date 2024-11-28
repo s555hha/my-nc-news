@@ -12,7 +12,11 @@ const {
   updateArticle,
 } = require("./controllers/articles.controller")
 
-const { getCommentsByArticleId, postCommentOnArticle } = require("./controllers/comments.controller")
+const {
+  getCommentsByArticleId,
+  postCommentOnArticle,
+  deleteComment,
+} = require("./controllers/comments.controller")
 
 const app = express()
 app.use(express.json())
@@ -31,6 +35,7 @@ app.post("/api/articles/:article_id/comments", postCommentOnArticle)
 
 app.patch("/api/articles/:article_id", updateArticle)
 
+app.delete("/api/comments/:comment_id", deleteComment)
 
 app.use(psqlErrorHandler)
 app.use(customErrorsHandler)

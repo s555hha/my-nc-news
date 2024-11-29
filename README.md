@@ -1,42 +1,36 @@
 <a id="readme-top"></a>
 
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
-<h3 align="center">My-nc-news</h3>
+<h1 align="center">My-nc-news</h1>
   <p align="center">
     https://my-nc-news-2dfw.onrender.com
   </p>
 </div>
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
-    This is my first attempt at a Backend project and its purpose is to access  data programmatically and return that to the front end.
+This is my first attempt at a Backend project and its purpose is to access  data programmatically and return that to the front end.
 
 Database chosen is PostgreSQL.
 
 If you check endpoints.json for information regarding the endpoints for this API, there are examples of what each endpoint responds with.
 
-
-<!-- GETTING STARTED -->
 ## Getting Started
 
 First you will need to clone the repo, click code and copy the HTTPS URL.
  Then in your terminal you can clone the repo by running the command
-git clone "URL"
+git clone https/url
 
-### Prerequisites
+## Prerequisites
 
 In the root file, create two files 
 1: .env.test file containing PGDATABASE=nc_news_test
 2: .env.development containing PGDATABASE=nc_news.
-* npm
-  ```sh
-  npm install
-  ```
 
-### Installation
+## Installation
+
+You will now need to install the dependecies shown below
 
 * npm
   ```sh
@@ -78,12 +72,9 @@ In the root file, create two files
   npm install -D supertest
   ```
 
-
-
-<!-- USAGE EXAMPLES -->
 ## Setup database and seed
 
-Once the dependencies are installed you can add the the databases and seen them data.
+Once the dependencies are installed you can add the the databases and seed them data with the commands below.
 
 * Create a new database
      ```bash
@@ -101,9 +92,7 @@ Once the dependencies are installed you can add the the databases and seen them 
 
 ## Testing
 
-All testing was done with jest, to check that API is function correctly you can run
+All testing was done with jest, to check that API is functioning correctly you can run
 ```bash
 npm test app
-
 ```
-

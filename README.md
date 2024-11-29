@@ -20,7 +20,7 @@ If you check endpoints.json for information regarding the endpoints for this API
 
 First you will need to clone the repo, click code and copy the HTTPS URL.
  Then in your terminal you can clone the repo by running the command
-git clone https/url
+git clone https://github.com/s555hha/my-nc-news.git
 
 ## Prerequisites
 

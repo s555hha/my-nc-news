@@ -4,6 +4,9 @@
 <br />
 <div align="center">
 <h3 align="center">My-nc-news</h3>
+  <p align="center">
+    https://my-nc-news-2dfw.onrender.com
+  </p>
 </div>
 
 <!-- ABOUT THE PROJECT -->
@@ -19,64 +22,91 @@ If you check endpoints.json for information regarding the endpoints for this API
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+First you will need to clone the repo, click code and copy the HTTPS URL.
+ Then in your terminal you can clone the repo by running the command
+git clone "URL"
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+In the root file, create two files 
+1: .env.test file containing PGDATABASE=nc_news_test
+2: .env.development containing PGDATABASE=nc_news.
 * npm
   ```sh
-  npm install npm@latest -g
+  npm install
   ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
-   ```
+* npm
+  ```sh
+  npm install
+  ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+  ## Dependencies
+
+* PostgreSQL
+  ```sh
+  npm install pg
+  ```
+* express
+  ```sh
+  npm install express
+  ```
+* pg-format
+  ```sh
+  npm install pg-format
+  ```
+  * dotenv
+  ```sh
+  npm install -D dotenv
+  ```
+  * jest
+  ```sh
+  npm install -D jest
+  ```
+    * jest-sorted
+  ```sh
+  npm install -D jest-sorted
+  ```
+    * nodemon
+  ```sh
+  npm install -D nodemon
+  ```
+    * supertest
+  ```sh
+  npm install -D supertest
+  ```
 
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Setup database and seed
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Once the dependencies are installed you can add the the databases and seen them data.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+* Create a new database
+     ```bash
+     npm run setup-dbs
+     ```
+* Seed the database:
+   ```bash
+   npm run seed
+   ```
+* Start the server:
+   ```bash
+   npm start
+   ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Testing
 
+All testing was done with jest, to check that API is function correctly you can run
+```bash
+npm test app
 
-<!-- ROADMAP -->
-## Roadmap
+```
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 

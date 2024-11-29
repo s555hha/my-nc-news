@@ -34,6 +34,8 @@ In the root file, create two files
 
 ## Installation
 
+You will now need to install the dependecies shown below
+
 * npm
   ```sh
   npm install
@@ -79,7 +81,7 @@ In the root file, create two files
 <!-- USAGE EXAMPLES -->
 ## Setup database and seed
 
-Once the dependencies are installed you can add the the databases and seen them data.
+Once the dependencies are installed you can add the the databases and seed them data with the commands below.
 
 * Create a new database
      ```bash

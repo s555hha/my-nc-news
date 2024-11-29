@@ -1,31 +1,5 @@
 const db = require("../db/connection")
 
-function selectArticleById(article_id) {
-  return (
-    db
-      .query(
-<<<<<<  `SELECT 
-        articles.*,
-        COUNT(comments.body)::INT AS comment_count 
-        FROM articles 
-        LEFT JOIN comments 
-        ON articles.article_id=comments.article_id
-        WHERE articles.article_id = $1
-        GROUP BY articles.article_id`,
-        [article_id]
-      )
-      .then(({ rows }) => {
-        if (rows.length === 0) {
-          return Promise.reject({
-            status: 404,
-            message: "article does not exist",
-          })
-        } else {
-          return rows[0]
-        }
-      })
-  )
-}
 function selectAllArticles(sort_by = "created_at", order_by = "DESC", topic) {
   const validSortBy = [
     "title",
@@ -69,6 +43,31 @@ function selectAllArticles(sort_by = "created_at", order_by = "DESC", topic) {
   })
 }
 
+function selectArticleById(article_id) {
+  return db
+    .query(
+      `SELECT 
+        articles.*,
+        COUNT(comments.body)::INT AS comment_count 
+        FROM articles 
+        LEFT JOIN comments 
+        ON articles.article_id=comments.article_id
+        WHERE articles.article_id = $1
+        GROUP BY articles.article_id`,
+      [article_id]
+    )
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({
+          status: 404,
+          message: "article does not exist",
+        })
+      } else {
+        return rows[0]
+      }
+    })
+}
+
 function updateSelectedArticle(article_id, inc_votes) {
   if (!inc_votes) {
     return Promise.reject({
@@ -88,5 +87,41 @@ function updateSelectedArticle(article_id, inc_votes) {
       return rows[0]
     })
 }
+function selectCommentsByArticleId(article_id) {
+  return db
+    .query(
+      `SELECT * FROM comments 
+    WHERE article_id = $1 
+    ORDER BY created_at DESC `,
+      [article_id]
+    )
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({
+          status: 404,
+          message: "article does not exist",
+        })
+      } else {
+        return rows
+      }
+    })
+}
 
-module.exports = { selectArticleById, selectAllArticles, updateSelectedArticle }
+function addComment(article_id, username, body) {
+  if (!username || !body) {
+    return Promise.reject({
+      status: 404,
+      message: "missing information",
+    })
+  }
+  return db
+    .query(
+      `INSERT INTO comments (article_id, author, body) 
+    VALUES ($1, $2, $3) RETURNING * `,
+      [article_id, username, body]
+    )
+    .then(({ rows }) => {
+      return rows[0]
+    })
+}
+module.exports = { selectArticleById, selectAllArticles, updateSelectedArticle, selectCommentsByArticleId, addComment }

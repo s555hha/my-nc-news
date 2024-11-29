@@ -1,33 +1,4 @@
-const {
-  selectCommentsByArticleId,
-  addComment,
-  removeSelectedComment,
-} = require("../models/comments.model")
-
-// const checkExists = require("../models/checkIfExists")
-
-function getCommentsByArticleId(req, res, next) {
-  const { article_id } = req.params
-  selectCommentsByArticleId(article_id)
-    .then((comments) => {
-      res.status(200).send({ comments })
-    })
-    .catch((err) => {
-      next(err)
-    })
-}
-
-function postCommentOnArticle(req, res, next) {
-  const { article_id } = req.params
-  const { username, body } = req.body
-  addComment(article_id, username, body)
-    .then((comment) => {
-      res.status(201).send({ comment })
-    })
-    .catch((err) => {
-      next(err)
-    })
-}
+const removeSelectedComment = require("../models/comments.model")
 
 function deleteComment(req, res, next) {
   const { comment_id } = req.params
@@ -40,4 +11,4 @@ function deleteComment(req, res, next) {
     })
 }
 
-module.exports = { getCommentsByArticleId, postCommentOnArticle, deleteComment }
+module.exports = deleteComment

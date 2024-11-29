@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-<h3 align="center">My-nc-news</h3>
+<h1 align="center">My-nc-news</h1>
   <p align="center">
     https://my-nc-news-2dfw.onrender.com
   </p>
@@ -24,19 +24,15 @@ If you check endpoints.json for information regarding the endpoints for this API
 
 First you will need to clone the repo, click code and copy the HTTPS URL.
  Then in your terminal you can clone the repo by running the command
-git clone "URL"
+git clone https/url
 
-### Prerequisites
+## Prerequisites
 
 In the root file, create two files 
 1: .env.test file containing PGDATABASE=nc_news_test
 2: .env.development containing PGDATABASE=nc_news.
-* npm
-  ```sh
-  npm install
-  ```
 
-### Installation
+## Installation
 
 * npm
   ```sh
@@ -101,7 +97,7 @@ Once the dependencies are installed you can add the the databases and seen them 
 
 ## Testing
 
-All testing was done with jest, to check that API is function correctly you can run
+All testing was done with jest, to check that API is functioning correctly you can run
 ```bash
 npm test app
 

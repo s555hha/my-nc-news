@@ -4,7 +4,8 @@ function selectArticleById(article_id) {
   return (
     db
       .query(
-        `SELECT articles.*, 
+<<<<<<  `SELECT 
+        articles.*,
         COUNT(comments.body)::INT AS comment_count 
         FROM articles 
         LEFT JOIN comments 

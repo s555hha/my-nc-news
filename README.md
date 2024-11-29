@@ -1,6 +1,5 @@
 <a id="readme-top"></a>
 
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
 <h1 align="center">My-nc-news</h1>
@@ -9,7 +8,6 @@
   </p>
 </div>
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 This is my first attempt at a Backend project and its purpose is to access  data programmatically and return that to the front end.
@@ -18,13 +16,11 @@ Database chosen is PostgreSQL.
 
 If you check endpoints.json for information regarding the endpoints for this API, there are examples of what each endpoint responds with.
 
-
-<!-- GETTING STARTED -->
 ## Getting Started
 
 First you will need to clone the repo, click code and copy the HTTPS URL.
  Then in your terminal you can clone the repo by running the command
-git clone https/url
+git clone https://github.com/s555hha/my-nc-news.git
 
 ## Prerequisites
 
@@ -76,9 +72,6 @@ You will now need to install the dependecies shown below
   npm install -D supertest
   ```
 
-
-
-<!-- USAGE EXAMPLES -->
 ## Setup database and seed
 
 Once the dependencies are installed you can add the the databases and seed them data with the commands below.
@@ -102,6 +95,4 @@ Once the dependencies are installed you can add the the databases and seed them 
 All testing was done with jest, to check that API is functioning correctly you can run
 ```bash
 npm test app
-
 ```
-

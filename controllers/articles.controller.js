@@ -23,12 +23,12 @@ function getAllArticles(req, res, next) {
   const promises = [selectAllArticles(sort_by, order_by, topic)]
 
   if (topic) {
-    promises.push(checkExists("topics", "slug", topic));
+    promises.push(checkExists("topics", "slug", topic))
   }
 
   Promise.all(promises)
     .then(([articles]) => {
-      res.status(200).send({ articles });
+      res.status(200).send({ articles })
     })
     .catch((err) => {
       next(err)
@@ -38,11 +38,11 @@ function getAllArticles(req, res, next) {
 function updateArticle(req, res, next) {
   const { article_id } = req.params
   const { inc_votes } = req.body
-  
+
   const promises = [updateSelectedArticle(article_id, inc_votes)]
 
   if (article_id) {
-    promises.push(checkExists('articles','article_id',article_id))
+    promises.push(checkExists("articles", "article_id", article_id))
   }
   Promise.all(promises)
     .then(([article]) => {

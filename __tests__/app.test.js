@@ -442,13 +442,13 @@ describe("GET /api/articles?sort_by&order_by", () => {
       })
   })
 })
-describe('GET /api/articles?topic', () => {
+describe("GET /api/articles?topic", () => {
   test("200: articles filtered by topic", () => {
     return request(app)
       .get("/api/articles?topic=mitch")
       .expect(200)
       .then(({ body: { articles } }) => {
-        expect(articles.length).toBe(12);
+        expect(articles.length).toBe(12)
         articles.forEach((article) => {
           expect(article).toMatchObject({
             topic: "mitch",
@@ -458,24 +458,54 @@ describe('GET /api/articles?topic', () => {
             created_at: expect.any(String),
             votes: expect.any(Number),
             article_img_url: expect.any(String),
-          });
-        });
-      });
-  });
-  test('200: if no articles then returns a empty array', () => {
+          })
+        })
+      })
+  })
+  test("200: if no articles then returns a empty array", () => {
     return request(app)
-      .get('/api/articles?topic=paper')
+      .get("/api/articles?topic=paper")
       .expect(200)
       .then(({ body: { articles } }) => {
-        expect(articles).toEqual([]);
-      });
-  });
+        expect(articles).toEqual([])
+      })
+  })
   test("404: If topic doesn't exist returns error", () => {
     return request(app)
-      .get('/api/articles?topic=banana')
+      .get("/api/articles?topic=banana")
       .expect(404)
       .then(({ body: { message } }) => {
-        expect(message).toBe("Sorry Not Found");
-      });
-  });
-});
+        expect(message).toBe("Sorry Not Found")
+      })
+  })
+})
+
+describe("GET /api/articles/:article_id", () => {
+  test("200: Respond with a object for the article id passed with a comment_count included in the object", () => {
+    return request(app)
+      .get("/api/articles/1")
+      .expect(200)
+      .then(({ body: { article } }) => {
+        expect(article).toEqual({
+          comment_count: 11,
+          article_id: 1,
+          author: "butter_bridge",
+          title: "Living in the shadow of a great man",
+          body: "I find this existence challenging",
+          topic: "mitch",
+          created_at: "2020-07-09T20:11:00.000Z",
+          votes: 100,
+          article_img_url:
+            "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
+        })
+      })
+  })
+  test("200: checking a second article id passed with a comment_count included in the object", () => {
+    return request(app)
+      .get("/api/articles/3")
+      .expect(200)
+      .then(({ body: { article } }) => {
+        expect(article.comment_count).toBe(2)
+      })
+  })
+})

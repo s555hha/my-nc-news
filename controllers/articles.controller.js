@@ -18,9 +18,16 @@ function getArticleById(req, res, next) {
     })
 }
 function getAllArticles(req, res, next) {
-  const { sort_by, order_by } = req.query
-  selectAllArticles(sort_by, order_by)
-    .then((articles) => {
+  const { sort_by, order_by, topic } = req.query
+
+  const promises = [selectAllArticles(sort_by, order_by, topic)]
+
+  if (topic) {
+    promises.push(checkExists("topics", "slug", topic));
+  }
+
+  Promise.all(promises)
+    .then(([articles]) => {
       res.status(200).send({ articles });
     })
     .catch((err) => {

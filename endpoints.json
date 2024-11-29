@@ -25,5 +25,143 @@
         }
       ]
     }
+  },
+"GET /api/articles/:article_id": {
+  "description": "retrieves an article by article id",
+  "queries": [],
+  "exampleResponse": {
+    "article_id": 1,
+    "title": "Living in the shadow of a great man",
+    "topic": "mitch",
+    "author": "butter_bridge",
+    "body": "I find this existence challenging",
+    "created_at": "2020-07-09T20:11:00.000Z",
+    "votes": 100,
+    "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700"
+  }
+},
+"GET /api/articles/:article_id/comments": {
+  "description": "returns an array of comments associated with the article_id",
+  "queries": [],
+  "exampleResponse": {
+    "comment_id": 4,
+    "body": "I carry a log — yes. Is it funny to you? It is not to me.",
+    "article_id": 1,
+    "author": "icellusedkars",
+    "votes": -100,
+    "created_at": "2020-02-23T12:01:00.000Z"
+  }
+},
+"POST /api/articles/:article_id/comments": {
+  "description": "post a comment to a article by id and return the comment object",
+  "queries": [],
+  "send example": {
+      "username": "butter_bridge",
+      "body": "test"
+    }
+  },
+  "exampleResponse": {
+    "comment_id": 19,
+    "body": "test",
+    "article_id": 1,
+    "author": "icellusedkars",
+    "votes": 0,
+    "created_at": "2024-11-28T21:29:14.450Z"
+  },
+  "PATCH /api/articles/:article_id/comments": {
+    "description": "update votes for a article by article_id",
+    "queries": [],
+    "exampleBody": {
+      "inc_votes": 5
+    },
+    "exampleResponse": {
+      "article_id": 1,
+      "title": "Living in the shadow of a great man",
+      "topic": "mitch",
+      "author": "butter_bridge",
+      "body": "I find this existence challenging",
+      "votes": 5,
+      "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700"
+    }
+  },
+  "DELETE /api/comments/comment_id": {
+    "description": "removes comment by comment_id",
+    "queries": []
+  },
+  "GET /api/users": {
+    "description": "returns an array of all users",
+    "queries": [],
+    "exampleResponse": [
+      {
+        "username": "butter_bridge",
+        "name": "jonny",
+        "avatar_url": "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg"
+      },
+      {
+        "username": "icellusedkars",
+        "name": "sam",
+        "avatar_url": "https://avatars2.githubusercontent.com/u/24604688?s=460&v=4"
+      },
+      {
+       "username": "rogersop",
+        "name": "paul",
+        "avatar_url": "https://avatars2.githubusercontent.com/u/24394918?s=400&v=4"
+      },
+      {
+        "username": "lurker",
+        "name": "do_nothing",
+        "avatar_url": "https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png"
+      }
+    ]
+  },
+  "GET /api/articles?sort_by": {
+    "description": " an array of all articles, sorted by ASC or DESC, this eg by title",
+    "queries": [
+      "created_at",
+      "article_id",
+      "title",
+      "topic",
+      "author",
+      "votes"
+    ],
+    "exampleResponse": [
+      {
+        "article_id": 7,
+        "title": "Z",
+        "topic": "mitch",
+        "author": "icellusedkars",
+        "created_at": "2020-01-07T14:08:00.000Z",
+        "votes": 0,
+        "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
+        "comment_count": 1
+      },
+      {
+        "article_id": 5,
+        "title": "UNCOVERED: catspiracy to bring down democracy",
+        "topic": "cats",
+        "author": "rogersop",
+        "created_at": "2020-08-03T13:14:00.000Z",
+        "votes": 0,
+        "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
+        "comment_count": 2
+      }
+    ]
+  },
+  "GET /api/articles?topic": {
+    "description": "returns an array articles matching query topic, if no matches are found return all articles",
+    "queries": ["mitch", "cats", "paper"],
+    "exampleResponse": [
+      {
+        "article_id": 5,
+        "title": "UNCOVERED: catspiracy to bring down democracy",
+        "topic": "cats",
+        "author": "rogersop",
+        "created_at": "2020-08-03T13:14:00.000Z",
+        "votes": 0,
+        "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
+        "comment_count": 2
+      }
+    ]
   }
 }
+

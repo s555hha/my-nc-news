@@ -4,7 +4,7 @@ const {
   removeSelectedComment,
 } = require("../models/comments.model")
 
-const checkExists = require("../models/checkIfExists")
+// const checkExists = require("../models/checkIfExists")
 
 function getCommentsByArticleId(req, res, next) {
   const { article_id } = req.params
@@ -31,11 +31,7 @@ function postCommentOnArticle(req, res, next) {
 
 function deleteComment(req, res, next) {
   const { comment_id } = req.params
-  const promises = [
-    checkExists("comments", "comment_id", comment_id),
-    removeSelectedComment(comment_id),
-  ]
-  Promise.all(promises)
+    removeSelectedComment(comment_id)
     .then(() => {
       res.status(204).send()
     })

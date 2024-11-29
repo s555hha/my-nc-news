@@ -12,7 +12,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-    This is my first attempt at a Backend project and its purpose is to access  data programmatically and return that to the front end.
+This is my first attempt at a Backend project and its purpose is to access  data programmatically and return that to the front end.
 
 Database chosen is PostgreSQL.
 

@@ -12,9 +12,9 @@ const {
 } = require("./error-handler")
 
 const app = express()
+app.use(cors());
 app.use(express.json())
 app.use('/api', apiRouter)
-app.use(cors());
 app.use(psqlErrorHandler)
 app.use(customErrorsHandler)
 app.use(serverErrorHandler)

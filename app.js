@@ -1,6 +1,8 @@
 const express = require("express")
+const cors = require('cors');
 
 const apiRouter = require("./routes/api-router")
+
 
 const {
   notFoundErrorHandler,
@@ -12,7 +14,7 @@ const {
 const app = express()
 app.use(express.json())
 app.use('/api', apiRouter)
-
+app.use(cors());
 app.use(psqlErrorHandler)
 app.use(customErrorsHandler)
 app.use(serverErrorHandler)
